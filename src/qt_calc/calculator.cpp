@@ -37,11 +37,13 @@ Calculator::Calculator(QWidget *parent)
 
 Calculator::~Calculator() { delete ui; }
 
-my_struct *Calculator::post_exec() {
+Notation Calculator::post_exec() {
   QString exec = ui->Display->text();
   QByteArray ba = exec.toLatin1();
   char *str = ba.data();
-  return postfix(str);
+  Notation n;
+  n.get_postfix(&str);
+  return n;
 }
 
 void Calculator::NumPressed() {
@@ -90,36 +92,39 @@ void Calculator::EqualPressed() {
   QString temp = ui->Display->text();
   QByteArray ba = temp.toLatin1();
   char *str = ba.data();
-  my_struct *a = postfix(str);
-  if (!validation(a)) {
-    free(a);
-    QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
-    return;
-  }
+  Notation n;
+  n.get_postfix(&str);
+//  my_struct *a = postfix(str);
+//  if (!validation(a)) {
+//    free(a);
+//    QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
+//    return;
+//  }
   ui->Button1->setText(QString::number(numX));
-  ans = polish(a, numX);
+  ans = n.polish(numX);
 
   ui->Answer->setText(QString::number(ans));
-  free(a);
+//  free(a);
 }
 
 void Calculator::on_ButtonGraph_clicked() {
   QString temp = ui->Display->text();
   QByteArray ba = temp.toLatin1();
   char *str1 = ba.data();
-  my_struct *test = postfix(str1);
-  if (!validation(test)) {
-    free(test);
-    QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
-    return;
-  }
+  Notation n;
+  n.get_postfix(&str1);
+//  if (!validation(test)) {
+////    free(test);
+//    QMessageBox::warning(this, "Внимание", "Выражение введено неправильно.");
+//    return;
+//  }
   if (ui->xmin->text().toDouble() >= ui->xmax->text().toDouble() || (ui->xmin->text().toDouble() < -1e6) || (ui->xmax->text().toDouble() > 1e6)) {
-    free(test);
+//    free(test);
     QMessageBox::warning(this, "Внимание", "Область определения указана неправильно.");
     return;
   }  
   if (ui->ymin->text().toDouble() >= ui->ymax->text().toDouble() || (ui->ymin->text().toDouble() < -1e6) || (ui->ymax->text().toDouble() > 1e6)) {
-    free(test);
+//    free(test);
     QMessageBox::warning(this, "Внимание", "Область значения указана неправильно.");
     return;
   }

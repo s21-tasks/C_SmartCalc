@@ -2,9 +2,8 @@
 #define GRAPH_H
 
 #include <QWidget>
-extern "C" {
-#include "../c_files/s21_smartcalc.h"
-}
+#include "../Model/model.h"
+
 
 namespace Ui {
 class Graph;
@@ -16,7 +15,7 @@ class Graph : public QWidget {
 public:
   explicit Graph(QWidget *parent = nullptr);
   ~Graph();
-  my_struct *buff_exec;
+  Notation buff_exec;
 
 signals:
   void firstWindow(); // Сигнал для первого окна на открытие

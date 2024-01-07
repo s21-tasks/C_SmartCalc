@@ -22,7 +22,9 @@ void Graph::slot(QString str, double xmin, double xmax, double ymin,
   QString temp = str; 
   QByteArray ba = temp.toLatin1();
   char *str1 = ba.data();
-  my_struct *a = postfix(str1);
+  Notation n;
+  n.get_postfix(&str1);
+//  my_struct *a = postfix(str1);
   N = 500;
   h = (xmax - xmin)/N;
   int i = 0;
@@ -31,14 +33,15 @@ void Graph::slot(QString str, double xmin, double xmax, double ymin,
 
   for (X = xmin; X <= xmax; X += h) {
     if (X <= xmax) {
-      if (!std::isnan(polish(a,X) && !std::isinf(polish(a,X)))) {
+      double ans = n.polish(X);
+      if (!std::isnan(ans) && !std::isinf(ans)) {
       x.push_back(X);
-      y.push_back(polish(a, X));
+      y.push_back(ans);
       }
     }
   }
-  free(a);
+//  free(a);
   ui->gr->addGraph();
-  ui->gr->graph(0)->addData(x, y);
+//  ui->gr->graph(0)->addData(x, y);
   ui->gr->replot();
 }

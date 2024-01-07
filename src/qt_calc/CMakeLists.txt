@@ -23,8 +23,10 @@ set(PROJECT_SOURCES
         calculator.cpp
         calculator.h
         calculator.ui
-        ../c_files/calc.c
-        ../c_files/s21_smartcalc.h
+#        ../c_files/calc.c
+#        ../c_files/s21_smartcalc.h
+        ../Model/model.cc
+        ../Model/model.h
         graph.h
         graph.cpp
         graph.ui

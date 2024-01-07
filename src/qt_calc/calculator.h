@@ -2,12 +2,11 @@
 #define CALCULATOR_H
 
 #include <QMainWindow>
+#include <list>
 #include <QMessageBox>
 #include <graph.h>
 
-extern "C" {
-#include "../c_files/s21_smartcalc.h"
-}
+#include "../Model/model.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,7 +21,7 @@ public:
   Calculator(QWidget *parent = nullptr);
   ~Calculator();
 
-  my_struct *post_exec();
+  Notation post_exec();
 
 private:
   Ui::Calculator *ui;
